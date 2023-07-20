@@ -60,7 +60,7 @@ var multiplyResult = calculator.calculate(operation: "multiply", firstNumber: Fi
 var divideResult = calculator.calculate(operation: "divide", firstNumber: FirstNumber, secondNumber: SecondNumber)
 var remainderResult = calculator.calculate(operation: "remain", firstNumber: FirstNumber, secondNumber: SecondNumber)
 
-print("-----Lv 1, 2 계산 결과-----")
+print("---- Lv 1, 2 계산 결과 ----")
 print("addResult : \(addResult)")
 print("subtractResult : \(subtractResult)")
 print("multiplyResult : \(multiplyResult)")
@@ -123,13 +123,13 @@ multiplyResult = MultiplyOperation_Lv3(firstNumber: FirstNumber, secondNumber: S
 divideResult = DivideOperation_Lv3(firstNumber: FirstNumber, secondNumber: SecondNumber).cal_result()
 remainderResult = RemainderOperation_Lv3(firstNumber: FirstNumber, secondNumber: SecondNumber).cal_result()
 
-print("-----Lv 3 계산 결과-----")
+print("------ Lv 3 계산 결과 ------")
 print("addResult : \(addResult)")
 print("subtractResult : \(subtractResult)")
 print("multiplyResult : \(multiplyResult)")
 print("divideResult : \(divideResult)")
 print("remainderResult : \(remainderResult)")
-print("----------------------")
+print("-------------------------")
 
 //Lv4 : AddOperation(더하기), SubtractOperation(빼기), MultiplyOperation(곱하기), DivideOperation(나누기) 연산 클래스들을 AbstractOperation라는 클래스명으로 만들어 사용하여 추상화하고 Calculator 클래스의 내부 코드를 변경합니다.
 class Calculator_Lv4 {
@@ -184,10 +184,100 @@ multiplyResult = MultiplyOperation_Lv4(firstNumber: FirstNumber, secondNumber: S
 divideResult = DivideOperation_Lv4(firstNumber: FirstNumber, secondNumber: SecondNumber).cal_result()
 remainderResult = RemainderOperation_Lv4(firstNumber: FirstNumber, secondNumber: SecondNumber).cal_result()
 
-print("-----Lv 4 계산 결과-----")
+print("------ Lv 4 계산 결과 ------")
 print("addResult : \(addResult)")
 print("subtractResult : \(subtractResult)")
 print("multiplyResult : \(multiplyResult)")
 print("divideResult : \(divideResult)")
 print("remainderResult : \(remainderResult)")
-print("----------------------")
+print("-------------------------")
+
+// 팀원들과 회의 후 최종적으로 Lv 4의 진행 방안.
+class AbstractOperation {
+    func perform(_ a: Double, _ b: Double) -> Double {
+        return 0
+    }
+}
+
+class AddOperationLv4: AbstractOperation {
+    override func perform(_ a: Double, _ b: Double) -> Double {
+        return a + b
+    }
+}
+
+class SubtractOperationLv4: AbstractOperation {
+    override func perform(_ a: Double, _ b: Double) -> Double {
+        return a - b
+    }
+}
+
+class MultiplyOperationLv4: AbstractOperation {
+    override func perform(_ a: Double, _ b: Double) -> Double {
+        return a * b
+    }
+}
+
+class DivideOperationLv4: AbstractOperation {
+    override func perform(_ a: Double, _ b: Double) -> Double {
+        if b != 0 {
+            return a / b
+        } else {
+            print("Error: Cannot divide by zero")
+            return 0
+        }
+    }
+}
+
+class RemainderOperationLv4: AbstractOperation {
+    override func perform(_ a: Double, _ b: Double) -> Double {
+        if b != 0 {
+            return a.truncatingRemainder(dividingBy: b)
+        } else {
+            print("Error: Cannot remainder by zero")
+            return 0
+        }
+    }
+}
+
+class CalculatorLv4 {
+    var operation: AbstractOperation? = nil // AbstractOperation Class를 상속
+    
+    func setOperation(_ operation: AbstractOperation) {
+        self.operation = operation
+    }
+    
+    func calculate(_ a: Double, _ b: Double) -> Double {
+        if let operation = operation {
+            return operation.perform(a, b)
+        } else {
+            print("No operation set")
+            return 0
+        }
+    }
+}
+
+let calculatorLv4 = CalculatorLv4()
+
+// 계산 전에 setOperation 함수를 사용하여 사용하는 operation을 설정한다.
+calculatorLv4.setOperation(AddOperationLv4())
+addResult = calculatorLv4.calculate(FirstNumber, SecondNumber)
+
+calculatorLv4.setOperation(SubtractOperationLv4())
+subtractResult = calculatorLv4.calculate(FirstNumber, SecondNumber)
+
+calculatorLv4.setOperation(MultiplyOperationLv4())
+multiplyResult = calculatorLv4.calculate(FirstNumber, SecondNumber)
+
+calculatorLv4.setOperation(DivideOperationLv4())
+divideResult = calculatorLv4.calculate(FirstNumber, SecondNumber)
+
+calculatorLv4.setOperation(RemainderOperationLv4())
+remainderResult = calculatorLv4.calculate(FirstNumber, SecondNumber)
+
+print("------ Lv 4 계산 결과 ------")
+print("addResult : \(addResult)")
+print("subtractResult : \(subtractResult)")
+print("multiplyResult : \(multiplyResult)")
+print("divideResult : \(divideResult)")
+print("remainderResult : \(remainderResult)")
+print("-------------------------")
