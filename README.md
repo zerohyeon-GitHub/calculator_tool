@@ -20,4 +20,5 @@ Swift 문법 기초 과제 (2주차)
     - hint. 클래스간의 결합도, 의존성(의존성역전원칙)
 
 1+1의 예시
+
 ![스크린샷 2023-11-30 오전 10 52 17](https://github.com/zerohyeon94/calculator_tool/assets/75235447/3de98645-c9cc-4d1f-8c04-ee6c15380abf)
